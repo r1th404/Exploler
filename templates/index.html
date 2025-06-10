@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kepler Explorer</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    .section-fit {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .scrollable-card {
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    body, h1, h2, h3, h4, h5, h6 {font-family: "Lato", sans-serif;}
+    body, html {
+      height: 100%;
+      color: #fff;
+      background-color: #000;
+      line-height: 1.8;
+    }
+
+
+    .bgimg-1 {
+      background-image: url('/static/img/b.jpg');
+      min-height: 100%;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .bgimg-2 {
+      background-image: url("/static/img/tele.jpg");
+      min-height: 100%;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .bgimg-3 {
+      background-image: url("/static/img/b.jpg");
+      min-height: 100%;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .w3-wide {letter-spacing: 10px;}
+    .w3-hover-opacity {cursor: pointer;}
+
+    @media only screen and (max-device-width: 1600px) {
+      .bgimg-1, .bgimg-2, .bgimg-3 {
+        background-attachment: scroll;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-black" id="myNavbar">
+    <a href="#home" class="w3-bar-item w3-button">HOME</a>
+    <a href="#form" class="w3-bar-item w3-button">CLASSIFICATION</a>
+    <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
+  </div>
+</div>
+
+<!-- Home Section -->
+<div class="bgimg-1 w3-display-container" id="home">
+  <div class="w3-display-middle w3-center">
+    <span class="w3-jumbo w3-animate-opacity w3-text-white">KEPLER MISSION</span>
+    <p class="w3-xlarge w3-text-white w3-padding-32">The Kepler space telescope was NASA’s first planet-hunting mission, assigned to search a portion of the Milky Way galaxy for Earth-sized planets orbiting stars outside our solar system. During nine years in deep space Kepler, and its second act, the extended mission dubbed K2, showed our galaxy contains billions of hidden "exoplanets," many of which could be promising places for life. They proved that our night sky is filled with more planets than even stars — knowledge that revolutionizes the understanding of our place in the cosmos.</p>
+  </div>
+</div>
+
+<!-- Form Section -->
+<style>
+    .space-form {
+      background: radial-gradient(circle at top left, #0d1b2a, #1b263b);
+      border: 1px solid #415a77;
+      color: #e0e1dd;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(173, 216, 230, 0.3);
+    }
+  
+    .space-form input,
+    .space-form select {
+      background-color: #1b263b;
+      color: #e0e1dd;
+      border: 1px solid #778da9;
+      margin-bottom: 12px;
+    }
+  
+    .space-form label {
+      font-weight: bold;
+      color: #edf2f4;
+    }
+  
+    .space-icon {
+      font-size: 48px;
+      text-align: center;
+      display: block;
+      animation: glow 2s infinite ease-in-out;
+    }
+  
+    @keyframes glow {
+      0% { text-shadow: 0 0 5px #fff; color: #ffea00; }
+      50% { text-shadow: 0 0 15px #ffee00, 0 0 30px #ff0; color: #ffd000; }
+      100% { text-shadow: 0 0 5px #fff; color: #ffea00; }
+    }
+  
+    .space-button {
+      background-color: #0d1b2a;
+      color: #ffea00;
+      border: 1px solid #ffea00;
+      font-weight: bold;
+      padding: 12px;
+      transition: background 0.3s ease;
+    }
+  
+    .space-button:hover {
+      background-color: #ffea00;
+      color: #0d1b2a;
+    }
+  
+    #result {
+      margin-top: 16px;
+      color: #ffffff;
+      text-shadow: 0 0 10px #ffaa00;
+    }
+
+
+
+
+  </style>
+  
+<!-- Form Section -->
+<div class="bgimg-2 w3-display-container" id="form">
+
+    <div class="w3-card-4 space-form" style="max-width: 600px; margin:auto">
+      <div class="space-icon">🔭</div>
+      <h3 class="w3-center">Klasifikasi Eksoplanet</h3>
+  
+      <!-- Fitur: Skor Kepercayaan -->
+      <label for="koi_score">
+        Skor Kepercayaan
+        <span class="hint-icon" onclick="showHint('score')">💡</span>
+      </label>
+      <input class="w3-input" id="koi_score" type="number" step="0.01" min="0" max="1" placeholder="Contoh: 0.9" required>
+      <small>Nilai kepercayaan model bahwa objek ini adalah kandidat eksoplanet (0 - 1).</small>
+  
+      <!-- Fitur: Periode Orbit -->
+      <label for="koi_period">
+        Periode Orbit (hari)
+        <span class="hint-icon" onclick="showHint('period')">💡</span>
+      </label>
+      <input class="w3-input" id="koi_period" type="number" placeholder="Contoh: 365" required>
+      <small>Jumlah hari yang dibutuhkan planet untuk mengelilingi bintangnya sekali.</small>
+  
+      <!-- Fitur: Ukuran Planet -->
+      <label for="koi_prad">
+        Ukuran Planet (x Bumi)
+        <span class="hint-icon" onclick="showHint('prad')">💡</span>
+      </label>
+      <input class="w3-input" id="koi_prad" type="number" step="0.1" placeholder="Contoh: 1.0" required>
+      <small>Radius planet dibandingkan dengan radius Bumi.</small>
+  
+      <!-- Fitur: Temperatur Ekuivalen -->
+      <label for="koi_teq">
+        Temperatur Ekuivalen (K)
+        <span class="hint-icon" onclick="showHint('teq')">💡</span>
+      </label>
+      <input class="w3-input" id="koi_teq" type="number" placeholder="Contoh: 300">
+      <small>Temperatur permukaan yang diperkirakan pada planet.</small>
+  
+      <!-- Fitur: Fluks Insolasi -->
+      <label for="koi_insol">
+        Fluks Insolasi
+        <span class="hint-icon" onclick="showHint('insol')">💡</span>
+      </label>
+      <input class="w3-input" id="koi_insol" type="number" placeholder="Contoh: 1.0">
+      <small>Jumlah energi dari bintang yang diterima planet (dibandingkan dengan Bumi).</small>
+  
+      <!-- Fitur: Temperatur Bintang -->
+      <label for="koi_steff">
+        Temperatur Bintang (K)
+        <span class="hint-icon" onclick="showHint('steff')">💡</span>
+      </label>
+      <input class="w3-input" id="koi_steff" type="number" placeholder="Contoh: 5800">
+      <small>Temperatur permukaan bintang induk (dalam Kelvin).</small>
+  
+      <!-- Fitur: Radius Bintang -->
+      <label for="koi_srad">
+        Radius Bintang
+        <span class="hint-icon" onclick="showHint('srad')">💡</span>
+      </label>
+      <input class="w3-input" id="koi_srad" type="number" placeholder="Contoh: 1.0">
+      <small>Radius bintang dibandingkan dengan Matahari.</small>
+  
+      <!-- Fitur: Log Gravitasi Permukaan -->
+      <label for="koi_slogg">
+        Log Gravitasi Permukaan
+        <span class="hint-icon" onclick="showHint('slogg')">💡</span>
+      </label>
+      <input class="w3-input" id="koi_slogg" type="number" placeholder="Contoh: 4.44">
+      <small>Logaritma gravitasi permukaan bintang (cm/s²).</small>
+  
+      <!-- Fitur: Magnitudo Kepler -->
+      <label for="koi_kepmag">
+        Magnitudo Kepler
+        <span class="hint-icon" onclick="showHint('kepmag')">💡</span>
+      </label>
+      <input class="w3-input" id="koi_kepmag" type="number" placeholder="Contoh: 12.0">
+      <small>Kecerahan bintang dalam skala Kepler.</small>
+  
+      <button class="w3-button space-button w3-block" onclick="submitData()">Klasifikasi</button>
+  
+      <h3 class="w3-center" id="result">Hasil Klasifikasi: -</h3>
+    </div>
+
+
+
+  </div>
+  
+  <!-- Hint Box -->
+  <div id="hint-box" class="w3-card-4 hint-box" style="display:none;">
+    <span onclick="document.getElementById('hint-box').style.display='none'" class="w3-button w3-display-topright">✖</span>
+    <p id="hint-text">💡 Penjelasan fitur...</p>
+  </div>
+  
+  <style>
+    small {
+      display: block;
+      font-size: 0.85em;
+      color: #a0aec0;
+      margin-bottom: 10px;
+    }
+  
+    .hint-icon {
+      cursor: pointer;
+      font-size: 1.1em;
+      animation: blink 1.5s infinite;
+      margin-left: 6px;
+    }
+  
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+  
+    .hint-box {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #fffbe6;
+      color: #333;
+      padding: 16px;
+      max-width: 300px;
+      border-left: 6px solid #ffd700;
+      z-index: 999;
+    }
+  </style>
+  
+  <script>
+    function showHint(feature) {
+      const hints = {
+        score: "💡 Skor kepercayaan antara 0 hingga 1 menunjukkan keyakinan model terhadap kandidat eksoplanet.",
+        period: "💡 Periode orbit adalah waktu (dalam hari) yang dibutuhkan planet untuk mengelilingi bintangnya.",
+        prad: "💡 Ukuran planet dibandingkan dengan Bumi. Misal: 1.0 berarti sama dengan Bumi.",
+        teq: "💡 Temperatur ekuivalen dalam Kelvin, misalnya: 300K untuk zona layak huni.",
+        insol: "💡 Fluks insolasi adalah energi yang diterima planet dari bintang, relatif terhadap Bumi.",
+        steff: "💡 Temperatur efektif permukaan bintang dalam Kelvin. Matahari ≈ 5778K.",
+        srad: "💡 Radius bintang dibandingkan Matahari. Contoh: 1.0 = radius Matahari.",
+        slogg: "💡 Log gravitasi permukaan bintang dalam cm/s². Contoh: Matahari ≈ 4.44.",
+        kepmag: "💡 Skala magnitudo visual Kepler, semakin kecil nilainya, semakin terang bintangnya.",
+      };
+      document.getElementById("hint-text").innerHTML = hints[feature] || "💡 Informasi tidak tersedia.";
+      document.getElementById("hint-box").style.display = "block";
+    }
+  </script>
+  
+  
+  <!-- About Section -->
+  <div class="bgimg-3 w3-display-container" id="about">
+
+    <div class="w3-display-middle w3-center w3-padding-large">
+      <div class="w3-container w3-card-4 space-form scrollable-card" style="max-width: 700px; margin: auto;">
+        <h2 class="w3-center">Tentang Misi Kepler</h2>
+        <p>Misi Kepler diluncurkan oleh NASA untuk mencari dunia baru di luar tata surya kita, yang dikenal sebagai eksoplanet. Dengan teknologi fotometri canggih, Kepler mampu mendeteksi penurunan kecil pada cahaya bintang ketika sebuah planet melintas di depannya.</p>
+        <p>Selama hampir satu dekade, Kepler mengumpulkan data dari lebih dari 150.000 bintang dan mengungkapkan bahwa galaksi kita penuh dengan planet, bahkan lebih banyak dari jumlah bintang itu sendiri.</p>
+        <p>Penemuan ini telah membuka jalan baru dalam pencarian kehidupan di luar Bumi dan memperluas pemahaman kita tentang tempat manusia di alam semesta.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <style>
+    small {
+      display: block;
+      font-size: 0.85em;
+      color: #a0aec0;
+      margin-bottom: 10px;
+    }
+  </style>
+  
+  <script>
+    function submitData() {
+      const data = {
+        koi_score: parseFloat(document.getElementById("koi_score").value),
+        koi_period: parseFloat(document.getElementById("koi_period").value),
+        koi_prad: parseFloat(document.getElementById("koi_prad").value),
+        koi_teq: parseFloat(document.getElementById("koi_teq").value),
+        koi_insol: parseFloat(document.getElementById("koi_insol").value),
+        koi_steff: parseFloat(document.getElementById("koi_steff").value),
+        koi_srad: parseFloat(document.getElementById("koi_srad").value),
+        koi_slogg: parseFloat(document.getElementById("koi_slogg").value),
+        koi_kepmag: parseFloat(document.getElementById("koi_kepmag").value),
+      };
+  
+      fetch("/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json())
+      .then(res => {
+
+        const resultText = res.result;
+        document.getElementById("result").innerHTML = "Hasil Klasifikasi: " + resultText;
+
+      })
+      .catch(error => {
+        console.error("Terjadi kesalahan:", error);
+        document.getElementById("result").innerHTML = "Hasil Klasifikasi: Gagal memproses data.";
+      });
+    }
+  </script>
